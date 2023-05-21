@@ -25,15 +25,12 @@ const MainPage = () => {
   const [checkedUser, setCheckedUser] = useState([])
 
   const [amount, setAmount] = useState(0)
-  
-
-  const handleCheckedUsers = (userId, checked) => {
-    checked ?
-    setCheckedUser((prevCheckedUsers) => [...prevCheckedUsers, userId]) :
-    setCheckedUser((prevCheckedUsers) => prevCheckedUsers.filter( (id) => id !== userId))
-  }
 
   //SAVES THE PRODUCTS DATA IN LOCAL STORAGE SO YOU DON´T LOSE THEM ON REFRESH
+  useEffect(() => {
+    localStorage.setItem('items', JSON.stringify(items));
+  }, [items]);
+  
   useEffect(() => {
     const storedItems = localStorage.getItem('items');
     if (storedItems) {
@@ -42,8 +39,25 @@ const MainPage = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('items', JSON.stringify(items));
-  }, [items]);
+    window.addEventListener('beforeunload', alertRefresh, { capture: true });
+  
+    return () => {
+      window.removeEventListener('beforeunload', alertRefresh);
+    };
+  }, []);
+
+
+  const alertRefresh = (e) => {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+    
+
+  const handleCheckedUsers = (userId, checked) => {
+    checked ?
+    setCheckedUser((prevCheckedUsers) => [...prevCheckedUsers, userId]) :
+    setCheckedUser((prevCheckedUsers) => prevCheckedUsers.filter( (id) => id !== userId))
+  }
 
 
   //RENDERS THE USER CARDS
@@ -51,7 +65,9 @@ const MainPage = () => {
     return Array.from({ length: userAmount }, (_, i) => (
       <ParticipantCard 
         key={i} 
-        id={i} 
+        id={i}
+        items={items}
+        setItems={setItems} 
         handleCheckedUsers={handleCheckedUsers}
         amount={amount}/>
     ));
@@ -73,15 +89,13 @@ const MainPage = () => {
   //STORES THE ITEMS IN AN ARRAY
   const handleItemSubmit = (e) => {
     e.preventDefault()
-    setItems( prevItems => (
-    [...prevItems, 
-      storeItems
-    ]))
-    cleanRef.current.reset();
-    Swal.fire('Product added!')
-    setAmount(Number(storeItems.price) / checkedUser.length)
-
-    
+    checkedUser.length === 0 ?
+    Swal.fire('No users marked') :
+    (setItems( prevItems => ([...prevItems, storeItems])),
+    cleanRef.current.reset(),
+    Swal.fire('Product added!'),
+    setAmount(Number(storeItems.price) / checkedUser.length),
+    setCheckedUser([]))
   }
 
   //DELETES ALL PRODUCTS
@@ -98,7 +112,6 @@ const MainPage = () => {
       if (result.isConfirmed) {
         localStorage.removeItem('items');
         setItems([])
-        console.log(items)
         Swal.fire(
           'Deleted!',
           'Your file has been deleted.',

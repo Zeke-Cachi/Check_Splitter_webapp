@@ -1,12 +1,40 @@
 "use client"
 import { useState, useEffect } from "react"
 
-const ParticipantCard = ({id, handleCheckedUsers, amount}) => {
+const ParticipantCard = ({id, handleCheckedUsers, amount, items, setItems}) => {
 
-  const [saveName, setSaveName] = useState("");
+  const [saveName, setSaveName] = useState("lkjhlkhlkjh");
   const [hideForm, setHideForm] = useState(true)
   const [isChecked, setIsChecked] = useState(false);
   const [counter, setCounter] = useState(0);
+
+  //UPDATE THE AMOUNT OF EACH USER
+  useEffect(() => {
+    setCounter(prevCounter => isChecked ? prevCounter + amount : prevCounter);
+  }, [amount]);
+
+  //RESET THE CHECKBOX AFTER SUBMITTING PRODUCT
+  useEffect( () => {
+    setIsChecked(false)
+  }, [amount])
+
+  //RESETS THE AMOUNT TO 0 IF THE PRODUCS ARE ERASED
+  useEffect( () => {
+    items.length === 0 ? setCounter(0) : null
+  }, [items])
+
+
+
+  useEffect ( () => {
+    localStorage.setItem(`name`, saveName)
+  }, [saveName])
+
+  useEffect ( () => {
+    const storedName = localStorage.getItem(`name`)
+    storedName ? setSaveName(storedName) : null
+  },[])
+
+
 
   //CHECK IF THE CHECKBOX HAS BEEN CHECKED
   const handleCheckboxChange = (e) => {
@@ -15,10 +43,6 @@ const ParticipantCard = ({id, handleCheckedUsers, amount}) => {
     handleCheckedUsers(id, checked);
   };
 
-
-  useEffect(() => {
-    setCounter(prevCounter => isChecked ? prevCounter + amount : prevCounter);
-  }, [amount]);
 
   const handleSaveName = (e) => {
     setSaveName(e.target.value)
