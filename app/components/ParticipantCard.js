@@ -1,22 +1,24 @@
 "use client"
 import { useState, useEffect } from "react"
 
-const ParticipantCard = ({id, handleCheckedUsers, amount, items, setItems}) => {
+const ParticipantCard = ({id, handleCheckedUsers, amount, items}) => {
 
   const [saveName, setSaveName] = useState("lkjhlkhlkjh");
   const [hideForm, setHideForm] = useState(true)
   const [isChecked, setIsChecked] = useState(false);
   const [counter, setCounter] = useState(0);
 
+
+
   //UPDATE THE AMOUNT OF EACH USER
   useEffect(() => {
     setCounter(prevCounter => isChecked ? prevCounter + amount : prevCounter);
-  }, [amount]);
+  }, [items]);
 
   //RESET THE CHECKBOX AFTER SUBMITTING PRODUCT
   useEffect( () => {
     setIsChecked(false)
-  }, [amount])
+  }, [items])
 
   //RESETS THE AMOUNT TO 0 IF THE PRODUCS ARE ERASED
   useEffect( () => {

@@ -38,6 +38,8 @@ const MainPage = () => {
     }
   }, []);
 
+
+  //ALERT USER THAT DATA WILL BE LOST ON REFRESH
   useEffect(() => {
     window.addEventListener('beforeunload', alertRefresh, { capture: true });
   
@@ -67,7 +69,6 @@ const MainPage = () => {
         key={i} 
         id={i}
         items={items}
-        setItems={setItems} 
         handleCheckedUsers={handleCheckedUsers}
         amount={amount}/>
     ));
@@ -90,12 +91,16 @@ const MainPage = () => {
   const handleItemSubmit = (e) => {
     e.preventDefault()
     checkedUser.length === 0 ?
-    Swal.fire('No users marked') :
+    Swal.fire('No users marked') : 
     (setItems( prevItems => ([...prevItems, storeItems])),
-    cleanRef.current.reset(),
     Swal.fire('Product added!'),
     setAmount(Number(storeItems.price) / checkedUser.length),
-    setCheckedUser([]))
+    cleanRef.current.reset(),
+    setCheckedUser([]), 
+    setStoreItems({
+      name: "",
+      price: 0
+    }))
   }
 
   //DELETES ALL PRODUCTS
