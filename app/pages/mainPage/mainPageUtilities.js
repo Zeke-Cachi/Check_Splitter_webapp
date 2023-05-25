@@ -13,6 +13,7 @@ const MainPageUtilities = () => {
     const userAmount = searchParams.get('users')
     const cleanRef = useRef(null)
     
+
     //USESTATE TO HANDLE THE PRODUCTS
     const [items, setItems] = useState([])
     const [storeItems, setStoreItems] = useState({
@@ -24,6 +25,9 @@ const MainPageUtilities = () => {
     const [checkedUser, setCheckedUser] = useState([])
 
     const [amount, setAmount] = useState(0)
+
+    //CHANGE STYLING OF THE PARTICIPANTS CARDS ON FINISH
+    const [finish, setFinish] = useState(false)
 
     //SAVES THE PRODUCTS DATA IN LOCAL STORAGE SO YOU DON´T LOSE THEM ON REFRESH
     useEffect(() => {
@@ -48,12 +52,13 @@ const MainPageUtilities = () => {
     }, []);
 
 
+    //ALERTS IF USER TRIES TO REFRESH
     const alertRefresh = (e) => {
     e.preventDefault();
     e.returnValue = '';
     }
     
-
+    //HANDLES THE CHECKBOXES OF THE PARTICIPANTS
     const handleCheckedUsers = (userId, checked) => {
     checked ?
     setCheckedUser((prevCheckedUsers) => [...prevCheckedUsers, userId]) :
@@ -69,6 +74,7 @@ const MainPageUtilities = () => {
         id={i}
         items={items}
         handleCheckedUsers={handleCheckedUsers}
+        handleFinish={handleFinish}
         amount={amount}/>
     ));
     }
@@ -90,7 +96,9 @@ const MainPageUtilities = () => {
     const handleItemSubmit = (e) => {
     e.preventDefault()
     checkedUser.length === 0 ?
-    Swal.fire('No users marked') : 
+    Swal.fire('No users marked') :
+    storeItems.price === 0 || storeItems.name === "" ?
+    Swal.fire('No product or amount entered!') : 
     (setItems( prevItems => ([...prevItems, storeItems])),
     Swal.fire('Product added!'),
     setAmount(Number((storeItems.price / checkedUser.length).toFixed(2))),
@@ -104,25 +112,30 @@ const MainPageUtilities = () => {
 
     //DELETES ALL PRODUCTS
     const eraseItems = () => {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-        localStorage.removeItem('items');
-        setItems([])
-        Swal.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-        )
-        }
-    })
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            localStorage.removeItem('items');
+            setItems([])
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+            }
+        })
+    }
+
+    //CHANGE STYLING ON FINISH
+    const handleFinish = () => {
+        setFinish(true)
     }
     
       

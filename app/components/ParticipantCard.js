@@ -1,72 +1,19 @@
 "use client"
-import { useState, useEffect } from "react"
+import participantCardUtilities from "./participantCardUtilities"
 
-const ParticipantCard = ({id, handleCheckedUsers, amount, items}) => {
+const ParticipantCard = ({id, handleCheckedUsers, amount, items, handleFinish}) => {
 
-  const [saveName, setSaveName] = useState("lkjhlkhlkjh");
-  const [hideForm, setHideForm] = useState(true)
-  const [isChecked, setIsChecked] = useState(false);
-  const [counter, setCounter] = useState(0);
-
-
-
-  //UPDATE THE AMOUNT OF EACH USER
-  useEffect(() => {
-    setCounter(prevCounter => isChecked ? prevCounter + amount : prevCounter);
-  }, [items]);
-
-  //RESET THE CHECKBOX AFTER SUBMITTING PRODUCT
-  useEffect( () => {
-    setIsChecked(false)
-  }, [items])
-
-  //RESETS THE AMOUNT TO 0 IF THE PRODUCS ARE ERASED
-  useEffect( () => {
-    items.length === 0 ? setCounter(0) : null
-  }, [items])
-
-
-
-  useEffect ( () => {
-    localStorage.setItem(`name`, saveName)
-  }, [saveName])
-
-  useEffect ( () => {
-    const storedName = localStorage.getItem(`name`)
-    storedName ? setSaveName(storedName) : null
-  },[])
-
-
-
-  //CHECK IF THE CHECKBOX HAS BEEN CHECKED
-  const handleCheckboxChange = (e) => {
-    const checked = e.target.checked;
-    setIsChecked(checked);
-    handleCheckedUsers(id, checked);
-  };
-
-
-  const handleSaveName = (e) => {
-    setSaveName(e.target.value)
-  }
-
-  const hide = (e) => {
-    e.preventDefault()
-    setHideForm(false)
-  }
-
-  const show = () => {
-    setHideForm(true)
-  }
-
-  const showName = () => {
-    return hideForm ? "hidden" : "block"
-  }
-
-  const hideInput = () => {
-    return hideForm ? "block" : "hidden"
-  }
-
+  const {
+    handleCheckboxChange,
+    handleSaveName,
+    hide,
+    show,
+    showName,
+    hideInput,
+    saveName,
+    counter,
+    isChecked
+  } = participantCardUtilities(id, handleCheckedUsers, amount, items);
 
   return (
     <div className="bg-red-200 text-black w-[15rem] h-[10rem] border-[1px] border-purple-500 m-[1rem]">
@@ -82,8 +29,8 @@ const ParticipantCard = ({id, handleCheckedUsers, amount, items}) => {
 
       <h3 className={`${showName()}`}>{saveName}</h3>
 
-      <div>Amount</div>
-      <h6>{counter}</h6>
+      <div className={`${showName()}`}>Amount</div>
+      <h6 className={`${showName()}`}>${Number(counter.toFixed(2))}</h6>
 
       <label className={`${showName()}`}>Check here to add to the bill</label>
       <input 
