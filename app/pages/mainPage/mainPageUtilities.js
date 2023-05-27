@@ -29,6 +29,7 @@ const MainPageUtilities = () => {
     //CHANGE STYLING OF THE PARTICIPANTS CARDS ON FINISH
     const [finish, setFinish] = useState(false)
 
+
     //SAVES THE PRODUCTS DATA IN LOCAL STORAGE SO YOU DON´T LOSE THEM ON REFRESH
     useEffect(() => {
     localStorage.setItem('items', JSON.stringify(items));
@@ -74,7 +75,7 @@ const MainPageUtilities = () => {
         id={i}
         items={items}
         handleCheckedUsers={handleCheckedUsers}
-        handleFinish={handleFinish}
+        finish={finish}
         amount={amount}/>
     ));
     }
@@ -149,7 +150,9 @@ const MainPageUtilities = () => {
     handleItemSubmit, 
     eraseItems,
     items, 
-    cleanRef
+    cleanRef, 
+    finish,
+    handleFinish
     }
   )
 }

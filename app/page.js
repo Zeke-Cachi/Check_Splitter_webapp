@@ -1,14 +1,17 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from 'next/link'
 
 const Page = () => {
 
   const [users, setUsers] = useState(0)
+  const [triggerPage, setTriggerPage] = useState(false)
+
 
   const checkAmount = (e) => {
     e.preventDefault(); 
     e.target.value > 10 || e.target.value < 2 ? alert('Please enter an amount between 2 and 10') : null;
+    setTriggerPage(true)
   }
 
   const saveInput = (e) => {
