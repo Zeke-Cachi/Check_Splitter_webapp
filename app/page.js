@@ -1,10 +1,10 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from 'next/link'
 
 const Page = () => {
 
-  const [users, setUsers] = useState(0)
+  const [users, setUsers] = useState(2)
   const [triggerPage, setTriggerPage] = useState(false)
 
 
@@ -17,6 +17,12 @@ const Page = () => {
   const saveInput = (e) => {
     e.preventDefault()
     setUsers(parseInt(e.target.value))
+  }
+
+  const validateUserAmount = (e) => {
+    users === 0 || users === 1 || users === undefined ?
+    alert('You need to input 2 or more participants!') :
+    null
   }
   
 
@@ -38,12 +44,14 @@ const Page = () => {
           onChange={saveInput} />
         </form>
 
-        <Link 
-        className="h-[5rem] w-[10rem] bg-blue-200 mx-auto text-[2rem] text-blue-900 flex justify-center items-center mt-[3rem] rounded-lg active:text-white"
-        href={{
-          pathname: '/pages/mainPage',
-          query: { users: users }
-        }}>Start!</Link>
+        <div onClick={validateUserAmount}>
+          <Link 
+          className="h-[5rem] w-[10rem] bg-blue-200 mx-auto text-[2rem] text-blue-900 flex justify-center items-center mt-[3rem] rounded-lg active:text-white"
+          href={{
+            pathname: '/pages/mainPage',
+            query: { users: users }
+          }}>Start!</Link>
+        </div>
       </div>
     </body>
   );

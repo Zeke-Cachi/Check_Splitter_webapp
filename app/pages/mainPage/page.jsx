@@ -56,18 +56,22 @@ const MainPage = () => {
           {/* BUTTON TO ERASE ALL PRODUCTS */}
           <button 
             onClick={eraseItems}
-            className="mb-[1rem] bg-blue-900/[.95] h-[2.5rem] w-[9rem] rounded-xl text-blue-100 
-          text-center grid place-items-center border-[1px] border-blue-300 font-bold p-[0.5rem]">
+            className={`${finish ? "hidden" : "block"} mb-[1rem] bg-blue-900/[.95] h-[2.5rem] w-[9rem] rounded-xl text-blue-100 
+          text-center grid place-items-center border-[1px] border-blue-300 font-bold p-[0.5rem]`}>
             Erase Products
           </button>
 
           <button
             onClick={handleFinish}
-            className="bg-blue-900/[.95] h-[2.5rem] w-[9rem] rounded-xl text-blue-100 
-            text-center grid place-items-center border-[1px] border-blue-300 font-bold p-[0.5rem]">Finish</button>
+            className={`${finish ? "hidden" : "block"} bg-blue-900/[.95] h-[2.5rem] w-[9rem] rounded-xl text-blue-100 
+            text-center grid place-items-center border-[1px] border-blue-300 font-bold p-[0.5rem]`}>Finish</button>
         </div>
       </div>
       
+      <h1 className={`${finish ? "block" : "hidden opacity-0"} text-[3rem] font-bold text-blue-100 text-center bg-blue-900 rounded-xl border-[2px] border-blue-300`}>Final checks</h1>          
+
+      <h6 className={`${finish ? "block" : "hidden"} text-blue-100 text-center bg-blue-900 rounded-xl border-[2px] border-blue-300 mt-[.5rem]`}>Refresh to start again</h6>
+
       <div className={`w-[20rem] h-[20rem] transition-opacity opacity-100 ${!finish ? "block" : "hidden opacity-0"} bg-blue-900/[0.95] text-blue-100 mx-auto rounded-xl grid
       grid-rows-4 border-[2px] border-blue-300 p-[.5rem]`}>
         <label className='h-[1rem] mx-auto mt-[1.5rem] font-bold text-[1.7rem]'>Enter Item and Price</label> 
@@ -80,14 +84,14 @@ const MainPage = () => {
             placeholder='Enter Item'
             onChange={handleItemInput}
             className="w-[80%] h-[3rem] mx-auto rounded-xl border-[2px] border-blue-300 italic
-            p-[1rem] font-semibold text-blue-900 text-[1.1rem]"/>
+            p-[1rem] font-semibold text-blue-900 text-[1.1rem] focus:border-blue-700 outline-none focus:outline-none"/>
 
           <input 
             type="number" 
             placeholder='Enter amount'
             onChange={handlePriceInput}
             className="w-[80%] h-[3rem] mx-auto rounded-xl border-[2px] border-blue-300 italic
-            p-[1rem] font-semibold text-blue-900 text-[1.1rem]"/>
+            p-[1rem] font-semibold text-blue-900 text-[1.1rem] focus:border-blue-700 outline-none focus:outline-none"/>
 
           <button className='w-[8rem] h-[3rem] bg-blue-200 border-[2px] border-blue-300
            text-blue-900 hover:text-blue-950 text-[1.1rem] font-bold rounded-xl mx-auto 

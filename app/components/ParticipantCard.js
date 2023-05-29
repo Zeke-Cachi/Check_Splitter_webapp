@@ -18,10 +18,11 @@ const ParticipantCard = ({id, handleCheckedUsers, amount, items, finish}) => {
 
 
   return (
-    <div className={`flex flex-col ${finish ? "justify-around" : "justify-between "} 
+    <div className={`flex flex-col ${finish ? "justify-around animate-custom " : "justify-between "} 
     ${finish ? "bg-yellow-100/[.95] border-yellow-300" : "bg-blue-900/[.95] border-blue-300"} mx-auto 
     my-[.5rem] bg-blue-900/[.95] w-[10rem] h-[14rem] rounded-xl border-[2px]
     text-center p-[.7rem]`}>
+
 
       <form 
         onSubmit={hide}
@@ -31,7 +32,7 @@ const ParticipantCard = ({id, handleCheckedUsers, amount, items, finish}) => {
           placeholder="Write name here"
           onChange={handleSaveName}
           className="rounded-xl mt-[.7rem] w-[8rem] h-[2rem] text-[.9rem] italic text-center 
-          text-blue-900 font-bold" />
+          text-blue-900 font-bold focus:border-blue-700 outline-none focus:outline-none border-blue-300 border-[1px]" />
       </form>
 
       <h3 className={`${showName()} ${finish ? "text-blue-900" : "text-blue-100"} text-[1.2rem] font-bold`}>{saveName}</h3>
