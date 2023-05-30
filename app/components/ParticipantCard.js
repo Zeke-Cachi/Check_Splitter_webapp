@@ -39,7 +39,7 @@ const ParticipantCard = ({id, handleCheckedUsers, amount, items, finish}) => {
 
       <ImArrowUp className={`${hideInput()} animate-arrow text-yellow-100 h-[2rem] w-[2rem] mx-auto`} />
 
-      <h5 className={`${hideInput()} text-yellow-100 italic`}>Enter name and press Enter</h5>
+      <h5 className={`${hideInput()} text-yellow-100 italic md:px-[3rem]`}>Enter name and press Enter</h5>
 
       <h3 className={`${showName()} ${finish ? "text-blue-900" : "text-blue-100"} text-[1.2rem] font-bold
       sm:text-[1.5rem]`}>{saveName}</h3>
