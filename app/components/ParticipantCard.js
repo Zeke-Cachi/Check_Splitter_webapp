@@ -21,7 +21,7 @@ const ParticipantCard = ({id, handleCheckedUsers, amount, items, finish}) => {
     <div className={`flex flex-col ${finish ? "justify-around animate-custom " : "justify-between "} 
     ${finish ? "bg-yellow-100/[.95] border-yellow-300" : "bg-blue-900/[.95] border-blue-300"} mx-auto 
     my-[.5rem] bg-blue-900/[.95] w-[10rem] h-[14rem] rounded-xl border-[2px]
-    text-center p-[.7rem]`}>
+    text-center p-[.7rem] sm:w-[15rem] sm:h-[16rem] md:w-[15.5rem]`}>
 
 
       <form 
@@ -31,15 +31,21 @@ const ParticipantCard = ({id, handleCheckedUsers, amount, items, finish}) => {
           type="text" 
           placeholder="Write name here"
           onChange={handleSaveName}
-          className="rounded-xl mt-[.7rem] w-[8rem] h-[2rem] text-[.9rem] italic text-center 
-          text-blue-900 font-bold focus:border-blue-700 outline-none focus:outline-none border-blue-300 border-[1px]" />
+          className="bg-white rounded-xl mt-[.7rem] w-[8rem] h-[2rem] text-[.9rem] italic text-center 
+          text-blue-900 font-bold focus:border-blue-700 outline-none focus:outline-none border-blue-300 border-[1px]
+          sm:w-[12rem] sm:h-[2.5rem] sm:text-[1.1rem]" />
       </form>
 
-      <h3 className={`${showName()} ${finish ? "text-blue-900" : "text-blue-100"} text-[1.2rem] font-bold`}>{saveName}</h3>
+      <h5 className={`${hideInput()} text-blue-100 italic`}>Enter name and press Enter</h5>
 
-      <h6 className={`${showName()} ${finish ? "text-blue-900" : "text-blue-100"}  text-[1.8rem] font-bold`}>${Number(counter.toFixed(2))}</h6>
+      <h3 className={`${showName()} ${finish ? "text-blue-900" : "text-blue-100"} text-[1.2rem] font-bold
+      sm:text-[1.5rem]`}>{saveName}</h3>
 
-      <label className={`${showName()} ${finish ? "hidden" : "block"} text-[.8rem] text-blue-100 `}>Check here to add to the bill</label>
+      <h6 className={`${showName()} ${finish ? "text-blue-900" : "text-blue-100"}  text-[1.8rem] font-bold
+      sm:text-[2.2rem]`}>${Number(counter.toFixed(1))}</h6>
+
+      <label className={`${showName()} ${finish ? "hidden" : "block"} text-[.8rem] 
+      text-blue-100 sm:text-[.9rem]`}>Check here to add to the bill</label>
       
       <input 
         type="checkbox"
@@ -52,7 +58,7 @@ const ParticipantCard = ({id, handleCheckedUsers, amount, items, finish}) => {
       <button 
         className={`${showName()} ${finish ? "hidden" : "block"}  mx-auto w-[5rem] bg-blue-200 border-[2px] 
         border-blue-300 text-blue-900 hover:text-blue-950 text-[.9rem] font-bold 
-        rounded-xl mx-auto hover:bg-blue-50`}
+        rounded-xl mx-auto hover:bg-blue-50 sm:w-[6rem]`}
         onClick={show}>Edit
       </button>
 
