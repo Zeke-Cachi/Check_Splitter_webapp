@@ -27,7 +27,7 @@ const Page = () => {
   
 
   return (
-    <body className="bg-[url('/img/bg.jpg')] bg-center bg-contain grid place-items-center h-screen my-auto">
+    <main className="bg-[url('/img/bg.jpg')] bg-center bg-contain grid place-items-center h-screen my-auto">
       <div className="border-[4px] border-blue-300 bg-blue-900/[.95] h-[40rem] w-[20rem] 
       px-[1rem] m-auto rounded-xl text-blue-100 sm:w-[30rem] md:w-[40rem]">
         
@@ -55,7 +55,7 @@ const Page = () => {
           }}>Start!</Link>
         </div>
       </div>
-    </body>
+    </main>
   );
 };
 
