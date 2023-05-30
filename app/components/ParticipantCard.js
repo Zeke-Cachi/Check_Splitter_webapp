@@ -1,5 +1,6 @@
 "use client"
 import participantCardUtilities from "./participantCardUtilities";
+import { ImArrowUp } from "react-icons/im";
 
 
 const ParticipantCard = ({id, handleCheckedUsers, amount, items, finish}) => {
@@ -36,7 +37,9 @@ const ParticipantCard = ({id, handleCheckedUsers, amount, items, finish}) => {
           sm:w-[12rem] sm:h-[2.5rem] sm:text-[1.1rem]" />
       </form>
 
-      <h5 className={`${hideInput()} text-blue-100 italic`}>Enter name and press Enter</h5>
+      <ImArrowUp className={`${hideInput()} animate-arrow text-yellow-100 h-[2rem] w-[2rem] mx-auto`} />
+
+      <h5 className={`${hideInput()} text-yellow-100 italic`}>Enter name and press Enter</h5>
 
       <h3 className={`${showName()} ${finish ? "text-blue-900" : "text-blue-100"} text-[1.2rem] font-bold
       sm:text-[1.5rem]`}>{saveName}</h3>
