@@ -21,7 +21,7 @@ const MainPage = () => {
 
   return (
     
-    <main className="bg-[url('/img/bg.jpg')] bg-center bg-contain p-[.6rem] h-screen">
+    <main className="bg-[url('/img/bg.jpg')] bg-center bg-contain p-[.6rem] h-[100%]">
       {/* POPOVER FOR THE PRODUCTS LIST */}
       <div className='flex flex-col items-center mb-[3rem]'>
         <Popover className="mb-[1rem] bg-blue-900/[.95] h-[2.5rem] w-[9rem] rounded-xl text-blue-100 
